@@ -6,8 +6,6 @@ WordPress Access Manifest defines a **machine-readable format** for describing t
 
 It is **declarative**, **non-enforcing**, and designed to be consumed by tooling such as security audits, access governance systems, and AI-based code analysis.
 
----
-
 ## Why This Exists
 
 WordPress plugins and themes frequently introduce:
@@ -28,8 +26,6 @@ As a result:
 
 The Access Manifest solves this by allowing authors to **declare access intent explicitly**, without changing runtime behavior.
 
----
-
 ## What the Manifest Is (and Is Not)
 
 ### What it is
@@ -45,8 +41,6 @@ The Access Manifest solves this by allowing authors to **declare access intent e
 * A replacement for WordPress roles or capabilities
 * A security policy engine
 * A requirement for plugin approval or distribution
-
----
 
 ## How It Works
 
@@ -70,8 +64,6 @@ Tools may then:
 * Compare declared intent with runtime behavior
 * Recommend least-privilege models
 * Generate audit or governance reports
-
----
 
 ## Minimal Example
 
@@ -101,8 +93,6 @@ This declares:
 * The author assumes `manage_options` by default
 * No enforcement behavior is implied
 
----
-
 ## Supported Surface Types (v1.0)
 
 * `admin_menus`
@@ -116,8 +106,6 @@ This declares:
 * `cron_jobs`
 
 Each surface is identified by a stable `id` and may declare a default capability and metadata.
-
----
 
 ## Design Principles
 
@@ -135,8 +123,6 @@ Each surface is identified by a stable `id` and may declare a default capability
 
 5. **Tool-friendly**
    Optimized for static analysis and AI consumption.
-
----
 
 ## Validation
 
@@ -158,8 +144,6 @@ Validation does **not** verify:
 * Correctness of access logic
 * Security posture
 
----
-
 ## Adoption Strategy
 
 The Access Manifest is:
@@ -179,8 +163,6 @@ Tools MUST NOT:
 * Enforce access solely based on the manifest
 * Assume declared access is correct
 
----
-
 ## Tooling & Reference Implementation
 
 Advanced Access Manager (AAM) provides a reference implementation that:
@@ -192,15 +174,11 @@ Advanced Access Manager (AAM) provides a reference implementation that:
 
 Other tools are encouraged to implement support.
 
----
-
 ## Status
 
 * **Specification:** Draft v1.0
 * **Stability:** Intended to be stable and additive
 * **Feedback:** Actively encouraged
-
----
 
 ## Contributing
 
@@ -211,8 +189,6 @@ When contributing:
 * Prefer additive changes
 * Avoid enforcement semantics
 * Keep WordPress realities in mind
-
----
 
 ## License
 

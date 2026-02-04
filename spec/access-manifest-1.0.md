@@ -5,8 +5,6 @@
 **Maintained by:** Advanced Access Manager (AAM)
 **Scope:** WordPress plugins and themes
 
----
-
 ## 1. Purpose
 
 The Access Manifest provides a **standardized, machine-readable way** for WordPress plugins and themes to declare the **access-controlled surfaces** they introduce and the **access assumptions** they make.
@@ -17,8 +15,6 @@ The manifest:
 * Enables tooling (e.g. AAM, AI agents, audits) to understand access design
 * Improves least-privilege modeling and governance
 * Does not change WordPress runtime behavior
-
----
 
 ## 2. Design Principles
 
@@ -36,8 +32,6 @@ The manifest:
 
 5. **Tool-friendly**
    Must be statically analyzable and AI-readable.
-
----
 
 ## 3. File Location & Format
 
@@ -57,8 +51,6 @@ Plugin or theme root directory.
 * No comments
 * JSON Schema compliant
 
----
-
 ## 4. Top-Level Structure
 
 ```json
@@ -70,8 +62,6 @@ Plugin or theme root directory.
   "roles": []
 }
 ```
-
----
 
 ## 5. Provider Object
 
@@ -95,8 +85,6 @@ Identifies the declaring plugin or theme.
 | type    | string | yes      | `plugin` or `theme` |
 | version | string | no       | Provider version    |
 
----
-
 ## 6. Surfaces
 
 Surfaces represent **user-accessible or executable entry points** that require access control.
@@ -119,8 +107,6 @@ Surfaces represent **user-accessible or executable entry points** that require a
 
 Each category is optional.
 
----
-
 ### 6.2 Common Surface Fields
 
 All surface definitions MAY include:
@@ -132,8 +118,6 @@ All surface definitions MAY include:
 | capability         | string  | no       | Capability assumed by the developer |
 | required           | boolean | no       | If true, access must not be removed |
 | enforcement        | string  | no       | `wp`, `custom`, or `unknown`        |
-
----
 
 ### 6.3 Admin Menu Surface
 
@@ -147,8 +131,6 @@ All surface definitions MAY include:
 }
 ```
 
----
-
 ### 6.4 Admin Toolbar Surface
 
 ```json
@@ -158,8 +140,6 @@ All surface definitions MAY include:
   "capability": "manage_options"
 }
 ```
-
----
 
 ### 6.5 REST Route Surface
 
@@ -172,8 +152,6 @@ All surface definitions MAY include:
 }
 ```
 
----
-
 ### 6.6 AJAX Action Surface
 
 ```json
@@ -183,8 +161,6 @@ All surface definitions MAY include:
   "capability": "manage_options"
 }
 ```
-
----
 
 ### 6.7 Meta Box Surface
 
@@ -196,8 +172,6 @@ All surface definitions MAY include:
 }
 ```
 
----
-
 ### 6.8 Block Surface
 
 ```json
@@ -206,8 +180,6 @@ All surface definitions MAY include:
   "capability": "edit_posts"
 }
 ```
-
----
 
 ### 6.9 Shortcode Surface
 
@@ -219,8 +191,6 @@ All surface definitions MAY include:
 }
 ```
 
----
-
 ### 6.10 Setting Surface
 
 ```json
@@ -231,8 +201,6 @@ All surface definitions MAY include:
 }
 ```
 
----
-
 ### 6.11 Cron Job Surface
 
 ```json
@@ -242,8 +210,6 @@ All surface definitions MAY include:
   "capability": "manage_options"
 }
 ```
-
----
 
 ## 7. Capabilities
 
@@ -270,8 +236,6 @@ Declares **custom capabilities introduced or expected** by the provider.
 | description | string | no       |
 | used_by     | array  | no       |
 
----
-
 ## 8. Roles
 
 Declares **roles introduced by the provider**.
@@ -296,16 +260,12 @@ Declares **roles introduced by the provider**.
 | display_name | string | yes      |
 | capabilities | array  | no       |
 
----
-
 ## 9. Semantics & Interpretation
 
 * The manifest **does not grant or revoke access**
 * `capability` represents the **author’s assumption**
 * Tools MAY override declared defaults
 * Missing declarations imply **unknown or undeclared access**
-
----
 
 ## 10. Validation Rules
 
@@ -314,15 +274,11 @@ Declares **roles introduced by the provider**.
 * Surfaces SHOULD map to real WordPress constructs
 * Invalid manifests MUST be ignored gracefully
 
----
-
 ## 11. Backward Compatibility
 
 * Absence of `access.json` implies no declaration
 * Partial manifests are valid
 * Future versions MUST remain additive
-
----
 
 ## 12. Security Considerations
 
@@ -330,16 +286,12 @@ Declares **roles introduced by the provider**.
 * Tools SHOULD validate declared vs runtime behavior
 * Discrepancies SHOULD be reported, not auto-corrected
 
----
-
 ## 13. Future Extensions (Non-Normative)
 
 * Conditional access expressions
 * Multisite scope declarations
 * Contextual access (environment, tenant)
 * Integration with WP core registry
-
----
 
 ## 14. License
 
