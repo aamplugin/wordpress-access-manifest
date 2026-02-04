@@ -1,0 +1,214 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://aamportal.com/schemas/access-manifest-1.0.schema.json",
+    "title": "WordPress Access Manifest",
+    "type": "object",
+    "required": [
+        "schema",
+        "provider"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "schema": {
+            "type": "string",
+            "description": "Schema identifier URL"
+        },
+        "provider": {
+            "type": "object",
+            "required": [
+                "name",
+                "slug",
+                "type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9\\-]+$"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "plugin",
+                        "theme"
+                    ]
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "surfaces": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "admin_menus": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "admin_toolbar": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "rest_routes": {
+                    "$ref": "#/$defs/restSurfaceArray"
+                },
+                "ajax_actions": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "meta_boxes": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "blocks": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "shortcodes": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "settings": {
+                    "$ref": "#/$defs/surfaceArray"
+                },
+                "cron_jobs": {
+                    "$ref": "#/$defs/surfaceArray"
+                }
+            }
+        },
+        "capabilities": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/capability"
+            }
+        },
+        "roles": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/role"
+            }
+        }
+    },
+    "$defs": {
+        "surfaceArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/surface"
+            }
+        },
+        "surface": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_\\-\\.]+$"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "capability": {
+                    "type": "string"
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "enforcement": {
+                    "type": "string",
+                    "enum": [
+                        "wp",
+                        "custom",
+                        "unknown"
+                    ]
+                }
+            }
+        },
+        "restSurfaceArray": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/restSurface"
+            }
+        },
+        "restSurface": {
+            "allOf": [
+                {
+                    "$ref": "#/$defs/surface"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "namespace",
+                        "route"
+                    ],
+                    "properties": {
+                        "namespace": {
+                            "type": "string"
+                        },
+                        "route": {
+                            "type": "string"
+                        },
+                        "methods": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "GET",
+                                    "POST",
+                                    "PUT",
+                                    "PATCH",
+                                    "DELETE"
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "capability": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_\\-]+$"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "role": {
+            "type": "object",
+            "required": [
+                "id",
+                "display_name"
+            ],
+            "additionalProperties": true,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "pattern": "^[a-zA-Z0-9_\\-]+$"
+                },
+                "display_name": {
+                    "type": "string"
+                },
+                "capabilities": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
